@@ -52,6 +52,7 @@ foreach (new PhpCsFixerCustomFixersDev\Fixers() as $fixer) {
 return (new PhpCsFixer\Config())
     ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     ->registerCustomFixers(new PhpCsFixerCustomFixersDev\Fixers())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setUsingCache(false)
     ->setFinder(
@@ -60,3 +61,7 @@ return (new PhpCsFixer\Config())
             ->in(__DIR__),
     )
     ->setRules($rules);
+
+
+
+
