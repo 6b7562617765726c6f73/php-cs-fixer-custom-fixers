@@ -132,6 +132,43 @@ final class ReadonlyPromotedPropertiesFixerTest extends AbstractFixerTestCase
     }
 
     /**
+     * @dataProvider provideFix80Cases
+     *
+     * @requires 8.0
+     */
+    public function testFix80(string $expected, ?string $input = null): void
+    {
+        $this->doTest($expected, $input);
+    }
+
+    /**
+     * @return iterable<list<string>>
+     */
+    public static function provideFix80Cases(): iterable
+    {
+        yield [
+            <<<'PHP'
+                <?php
+                final class FooController extends AbstractController {
+                    public function __construct(
+                        #[Autowire('some_service_name')]
+                        private readonly SomeService $a
+                    ) {}
+                }
+                PHP,
+            <<<'PHP'
+                <?php
+                final class FooController extends AbstractController {
+                    public function __construct(
+                        #[Autowire('some_service_name')]
+                        private SomeService $a
+                    ) {}
+                }
+                PHP,
+        ];
+    }
+
+    /**
      * @dataProvider provideFix82Cases
      *
      * @requires PHP >= 8.2
