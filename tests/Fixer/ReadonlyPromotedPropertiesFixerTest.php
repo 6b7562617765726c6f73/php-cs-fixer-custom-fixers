@@ -129,23 +129,7 @@ final class ReadonlyPromotedPropertiesFixerTest extends AbstractFixerTestCase
                 public function doSomething() { $this->x = 42;  $this->z = 10; }
             }',
         ];
-    }
 
-    /**
-     * @dataProvider provideFix80Cases
-     *
-     * @requires 8.0
-     */
-    public function testFix80(string $expected, ?string $input = null): void
-    {
-        $this->doTest($expected, $input);
-    }
-
-    /**
-     * @return iterable<list<string>>
-     */
-    public static function provideFix80Cases(): iterable
-    {
         yield [
             <<<'PHP'
                 <?php
